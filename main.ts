@@ -52,47 +52,95 @@ class Frame
 
 class FrameDataParser
 {
-    parsingRule = null;
+    parser = null;
 
-    // TODO We might want to inject the parsingRule instead of
+    // TODO We might want to inject the parser instead of
     // grabbing it from inside the Parser class
     constructor(frameType: string)
     {
         switch (frameType)
         {
             case Frame.TYPE_TACTIC:
-                this.parsingRule = new ParsingRuleTactic();
+                this.parser = new TacticParser();
                 break;
-            // parsingRule must alwasy be defined
+            // parser must alwasy be defined
             default:
-                this.parsingRule = new ParsingRuleBoring();
+                this.parser = new BoringParser();
                 break;
         }
     }
 
     parse(document: HTMLDocument)
     {
-        return this.parsingRule.parse(document);
+        return this.parser.parse(document);
     }
 }
 
 // TODO Abstract this class - Extend with more specific classes!
-class ParsingRuleTactic
+class TacticParser
 {
     parse(document: HTMLDocument)
     {
         let dataFields = document.getElementsByTagName('center');
 
-        // TODO
-        let finalData = dataFields;
-        // TODO
+        let fleetMovementTableData: object = TableParser.parse(dataFields[0]);
+        let galaxyMembersTableData: object = TableParser.parse(dataFields[1]);
 
+        let finalData = '';
         return finalData;
     }
 }
 
+/**
+ * The TableParser parses a GalaxyNetwork table.
+ * It utilizes a TableRowParser to gather data row by row.
+*/
+class TableParser
+{
+    static parse(table: Element)
+    {
+        let rows: HTMLCollection = table.getElementsByClassName('R');
+
+        let tableData = [];
+
+        for (const row of rows)
+        {
+            // Sadly the 'R' selector above is not case sensitive
+            // so we have to make sure only use the ones with
+            // a capital 'R'.
+            if (row.className == 'R')
+            {
+                tableData.push(TableRowParser.parse(row));
+            }
+        }
+
+        return tableData;
+    }
+}
+
+/**
+ * The TableRowParser parses a GalaxyNetwork table row
+ * going through it field by field
+*/
+class TableRowParser
+{
+    static parse(row: Element)
+    {
+        let fields = <HTMLCollectionOf<HTMLTableDataCellElement>> row.getElementsByTagName('td');
+
+        let rowData = [];
+
+        for (const field of fields)
+        {
+            rowData.push(field.innerText);
+        }
+
+        return rowData;
+    }
+}
+
 // TODO Abstract this class - Extend with more specific classes!
-class ParsingRuleBoring
+class BoringParser
 {
     parse(document: HTMLDocument)
     {

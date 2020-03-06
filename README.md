@@ -13,5 +13,3 @@ I use VSCode and the setup is quite easy: [I'm an inline-style link with title](
 You will have to compile the addon before you can first develop it.
 
 ## Future improvements / ideas
-
-### Use Typescript instead of basic JS?

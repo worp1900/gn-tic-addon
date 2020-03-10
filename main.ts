@@ -170,7 +170,7 @@ class TableParser
         for (const row of rows)
         {
             // Sadly the 'R' selector above is not case sensitive
-            // so we have to make sure only use the ones with
+            // so we have to make sure to only use the ones with
             // a capital 'R'.
             if (row.className == 'R')
             {

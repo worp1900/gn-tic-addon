@@ -81,18 +81,7 @@ class TacticParser
 {
     parse(document: HTMLDocument)
     {
-        let dataFields = document.getElementsByTagName('center');
-
-        let fleetMovementTableData: Array<Array<string>> = TableParser.parse(dataFields[0]);
-        let galaxyMembersTableData: Array<Array<string>> = TableParser.parse(dataFields[1]);
-
-        // TODO create galaxyMembersData (to provide sector scans to TIC)
-
-        let fleetMovementData = FleetMovementDataMapper.map(fleetMovementTableData);
-
-        return [
-            fleetMovementData
-        ];
+        return document.getElementsByTagName("html")[0].innerHTML;
     }
 }
 

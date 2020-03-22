@@ -90,8 +90,7 @@ class TacticParser
 
         let fleetMovementData = FleetMovementDataMapper.map(fleetMovementTableData);
 
-        return
-        [
+        return [
             fleetMovementData
         ];
     }

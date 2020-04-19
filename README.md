@@ -19,3 +19,8 @@ You will have to compile the addon before you can first develop it.
 Use this snippet to get the constructor type of a JS object (a better version of `typeof object`):
 
     var t = Object.prototype.toString.call(someObject);
+### Use Typescript instead of basic JS?
+
+# License
+
+Available under [the MIT license](http://mths.be/mit).
